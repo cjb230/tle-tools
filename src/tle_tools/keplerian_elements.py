@@ -1,9 +1,18 @@
-from tle_tools import constants
 from math import pi, sqrt
+
+from tle_tools import constants
 
 
 class KeplerianElements:
-    def __init__(self, semi_major_axis: int, eccentricity: float, inclination, right_ascension_of_the_ascending_node, argument_of_perigee, true_anomaly):
+    def __init__(
+        self,
+        semi_major_axis: int,
+        eccentricity: float,
+        inclination,
+        right_ascension_of_the_ascending_node,
+        argument_of_perigee,
+        true_anomaly,
+    ):
         self.semi_major_axis = semi_major_axis
         self.eccentricity = eccentricity
         self.inclination = inclination
@@ -17,4 +26,11 @@ class KeplerianElements:
 
         :return: orbital period in seconds
         """
-        return 2 * pi * sqrt(pow(self.semi_major_axis, 3) / constants.earth_standard_gravitational_parameter)
+        return (
+            2
+            * pi
+            * sqrt(
+                pow(self.semi_major_axis, 3)
+                / constants.earth_standard_gravitational_parameter
+            )
+        )
