@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "tle-tools"
+version = "0.1.0"
+description = "Some tools for working with orbits."
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/cjb230/tle-tools"
+authors = ["James Barton <james.barton@blueyonder.co.uk>"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.dev-dependencies]
+pytest = "^7.1.2"
+coverage = {extras = ["toml"], version = "^6.4"}
+pytest-cov = "^3.0.0"
+pytest-mock = "^3.7.0"
+
+[tool.coverage.paths]
+source = ["src", "*/site-packages"]
+
+[tool.coverage.run]
+branch = true
+source  = ["tle_tools"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 100
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
