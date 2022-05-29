@@ -6,7 +6,7 @@ from tle_tools.keplerian_elements import KeplerianElements
 @pytest.fixture
 def iss_set():
     return KeplerianElements(
-        semi_major_axis=6.6e6,
+        semi_major_axis=6_600_000,
         eccentricity=0.00050,
         inclination=51.6431,
         right_ascension_of_the_ascending_node=0,
