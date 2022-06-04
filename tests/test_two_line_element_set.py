@@ -42,4 +42,4 @@ def test_keplerian_elements(iss_tle):
     assert result.inclination == 51.6451
     assert result.raan == 39.6852
     assert result.argument_of_perigee == 193.2393
-    assert result.true_anomaly == -1
+    assert result.true_anomaly is None

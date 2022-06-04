@@ -1,7 +1,7 @@
 from math import pi
 
-from tle_tools.keplerian_elements import KeplerianElements
 from tle_tools import constants
+from tle_tools.keplerian_elements import KeplerianElements
 
 
 class TwoLineElementSet:
@@ -25,11 +25,12 @@ class TwoLineElementSet:
         eccentricity,
         argument_of_perigee,
         mean_anomaly,
-        mean_motion,
+        mean_motion: float,
         revolution_number_at_epoch,
         checksum_l1=None,
         checksum_l2=None,
     ):
+        assert mean_motion > 0
         self.satellite_name = satellite_name
         self.satellite_catalog_number = satellite_catalog_number
         self.classification = classification
@@ -70,9 +71,12 @@ class TwoLineElementSet:
         :return: semi-major axis length in metres
         """
         t = self.orbital_period()
-        return pow(
-            (t * t * constants.earth_standard_gravitational_parameter) / (4 * pi * pi),
-            (1 / 3),
+        return float(
+            pow(
+                (t * t * constants.earth_standard_gravitational_parameter)
+                / (4 * pi * pi),
+                (1 / 3),
+            )
         )
 
     def keplerian_elements(self) -> KeplerianElements:
@@ -83,13 +87,12 @@ class TwoLineElementSet:
 
         :return: KeplerianElements (tle_tools.keplerian_elements)
         """
-        true_anomaly = -1
         result = KeplerianElements(
             semi_major_axis=self.semi_major_axis(),
             eccentricity=self.eccentricity,
             inclination=self.inclination,
             right_ascension_of_the_ascending_node=self.right_ascension_of_the_ascending_node,
             argument_of_perigee=self.argument_of_perigee,
-            true_anomaly=true_anomaly,
+            true_anomaly=None,
         )
         return result
