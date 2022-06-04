@@ -1,4 +1,5 @@
 from math import pi, sqrt
+from typing import Union
 
 from tle_tools import constants
 
@@ -6,7 +7,7 @@ from tle_tools import constants
 class KeplerianElements:
     def __init__(
         self,
-        semi_major_axis: int,
+        semi_major_axis: Union[int, float],
         eccentricity: float,
         inclination,
         right_ascension_of_the_ascending_node,
