@@ -22,8 +22,7 @@ Things I've learned, or re-learned:
 
 ### Python Tools
 A few issues encountered, and dealt with, along the way:
-- I needed to get update xcode before anything else.
+- I needed to update xcode before anything else.
 - My bash profile fired up a conda environment that I'd completely forgotten about.
--
 
 As of right now, I'm a little stuck on the pre-commit stuff: I have black using the github repo instead of local settings, but if I make the pre-commit config file looks more like this: https://github.com/cjolowicz/hypermodern-python/blob/master/.pre-commit-config.yaml then I have binary incompatability issues. Apple's new silicon is nice, but has its own problems.
