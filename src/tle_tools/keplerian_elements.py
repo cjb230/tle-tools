@@ -34,3 +34,32 @@ class KeplerianElements:
                 / constants.earth_standard_gravitational_parameter
             )
         )
+
+    def semi_minor_axis(self) -> float:
+        """
+        Length of the shorter axis. Depends on the semi-major axis and the eccentricity.
+
+        :return: semi-minor axis length, in metres
+        """
+        return self.semi_major_axis * sqrt(1 - pow(self.eccentricity, 2))
+
+    def area_within_orbit(self) -> float:
+        """
+        Area within the orbit.
+
+        A step to calculating the radius vector's "speed".
+        Area of ellipse = pi * semi-major axis * semi-minor axis.
+
+        :return: area within the orbit, in square metres.
+        """
+        return pi * self.semi_major_axis * self.semi_minor_axis()
+
+    def radius_vector_speed(self) -> float:
+        """
+        Rate at which the radius vector sweeps out area.
+
+        This is a constant, per Kepler 2.
+
+        :return: area sweep rate, in square metres per second
+        """
+        return self.area_within_orbit() / self.orbital_period()

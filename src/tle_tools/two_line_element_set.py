@@ -1,4 +1,7 @@
+from math import pi
+
 from tle_tools.keplerian_elements import KeplerianElements
+from tle_tools import constants
 
 
 class TwoLineElementSet:
@@ -17,7 +20,6 @@ class TwoLineElementSet:
         b_star,
         ephemeris_type,
         element_set_number,
-        checksum_l1,
         inclination,
         right_ascension_of_the_ascending_node,
         eccentricity,
@@ -25,7 +27,8 @@ class TwoLineElementSet:
         mean_anomaly,
         mean_motion,
         revolution_number_at_epoch,
-        checksum_l2,
+        checksum_l1=None,
+        checksum_l2=None,
     ):
         self.satellite_name = satellite_name
         self.satellite_catalog_number = satellite_catalog_number
@@ -52,11 +55,37 @@ class TwoLineElementSet:
         self.revolution_number_at_epoch = revolution_number_at_epoch
         self.checksum_l2 = checksum_l2
 
+    def orbital_period(self) -> float:
+        """
+         Duration of one orbit. Calculated from the mean motion.
+
+        :return: Duration of one orbit, in seconds
+        """
+        return 86400 / self.mean_motion
+
+    def semi_major_axis(self) -> float:
+        """
+        Length of the semi-major axis. Calculated from the mean motion.
+
+        :return: semi-major axis length in metres
+        """
+        t = self.orbital_period()
+        return pow(
+            (t * t * constants.earth_standard_gravitational_parameter) / (4 * pi * pi),
+            (1 / 3),
+        )
+
     def keplerian_elements(self) -> KeplerianElements:
-        semi_major_axis = 1
-        true_anomaly = 1
+        """
+        Keplerian elements for this TLE
+
+        NB Anomaly is not calculated!
+
+        :return: KeplerianElements (tle_tools.keplerian_elements)
+        """
+        true_anomaly = -1
         result = KeplerianElements(
-            semi_major_axis=semi_major_axis,
+            semi_major_axis=self.semi_major_axis(),
             eccentricity=self.eccentricity,
             inclination=self.inclination,
             right_ascension_of_the_ascending_node=self.right_ascension_of_the_ascending_node,
