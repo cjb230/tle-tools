@@ -1,3 +1,4 @@
+"""All pytest tests for tle_tools.two_line_element_set."""
 import pytest
 
 from tle_tools.two_line_element_set import TwoLineElementSet
@@ -5,7 +6,8 @@ from tle_tools.two_line_element_set import TwoLineElementSet
 
 @pytest.fixture
 def iss_tle() -> TwoLineElementSet:
-    """
+    """Example TLE for the ISS.
+
     Took this from https://live.ariss.org/tle/
     ISS (ZARYA)
     1 25544U 98067A   22155.44817811  .00008247  00000-0  15303-3 0  9995
@@ -36,6 +38,7 @@ def iss_tle() -> TwoLineElementSet:
 
 
 def test_keplerian_elements(iss_tle: TwoLineElementSet) -> None:
+    """Keplerian elements generated from this TLE."""
     result = iss_tle.keplerian_elements()
     assert result.semi_major_axis == 6795174.095898508
     assert result.eccentricity == 0.0004682

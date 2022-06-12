@@ -1,3 +1,4 @@
+"""Tools for working with Keplerian element sets."""
 from math import pi, sqrt
 from typing import Union
 
@@ -5,6 +6,11 @@ from tle_tools import constants
 
 
 class KeplerianElements:
+    """All six members of the set of Keplerian elements. No epoch!
+
+    NB True anomaly is currently optional.
+    """
+
     def __init__(
         self,
         semi_major_axis: float,
@@ -14,6 +20,15 @@ class KeplerianElements:
         argument_of_perigee: float,
         true_anomaly: Union[float, None],
     ) -> None:
+        """Create a set of Keplerian elements from parsed variables.
+
+        :param semi_major_axis:
+        :param eccentricity:
+        :param inclination:
+        :param right_ascension_of_the_ascending_node:
+        :param argument_of_perigee:
+        :param true_anomaly:
+        """
         self.semi_major_axis = semi_major_axis
         self.eccentricity = eccentricity
         self.inclination = inclination
@@ -22,8 +37,7 @@ class KeplerianElements:
         self.true_anomaly = true_anomaly
 
     def orbital_period(self) -> float:
-        """
-        Time to complete one orbit. Depends only on the semi-major axis.
+        """Time to complete one orbit. Depends only on the semi-major axis.
 
         :return: orbital period in seconds
         """
@@ -37,16 +51,14 @@ class KeplerianElements:
         )
 
     def semi_minor_axis(self) -> float:
-        """
-        Length of the shorter axis. Depends on the semi-major axis and the eccentricity.
+        """Length of shorter axis. Depends on semi-major axis and eccentricity.
 
         :return: semi-minor axis length, in metres
         """
         return self.semi_major_axis * sqrt(1 - pow(self.eccentricity, 2))
 
     def area_within_orbit(self) -> float:
-        """
-        Area within the orbit.
+        """Area within the orbit.
 
         A step to calculating the radius vector's "speed".
         Area of ellipse = pi * semi-major axis * semi-minor axis.
@@ -56,8 +68,7 @@ class KeplerianElements:
         return pi * self.semi_major_axis * self.semi_minor_axis()
 
     def radius_vector_speed(self) -> float:
-        """
-        Rate at which the radius vector sweeps out area.
+        """Rate at which the radius vector sweeps out area.
 
         This is a constant, per Kepler 2.
 

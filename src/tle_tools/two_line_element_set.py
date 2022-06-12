@@ -1,3 +1,4 @@
+"""Tools for working with two-line element set."""
 from math import pi
 
 from tle_tools import constants
@@ -5,6 +6,8 @@ from tle_tools.keplerian_elements import KeplerianElements
 
 
 class TwoLineElementSet:
+    """A container for a two-line element set, allowing some basic calculations."""
+
     def __init__(
         self,
         satellite_name: str,
@@ -30,6 +33,31 @@ class TwoLineElementSet:
         checksum_l1: int = None,
         checksum_l2: int = None,
     ) -> None:
+        """Create an instance from parsed variables.
+
+        :param satellite_name:
+        :param satellite_catalog_number:
+        :param classification:
+        :param launch_year:
+        :param year_launch_number:
+        :param launch_piece:
+        :param epoch_year:
+        :param epoch_day:
+        :param mean_motion_first_derivative:
+        :param mean_motion_second_derivative:
+        :param b_star:
+        :param ephemeris_type:
+        :param element_set_number:
+        :param inclination:
+        :param right_ascension_of_the_ascending_node:
+        :param eccentricity:
+        :param argument_of_perigee:
+        :param mean_anomaly:
+        :param mean_motion:
+        :param revolution_number_at_epoch:
+        :param checksum_l1:
+        :param checksum_l2:
+        """
         assert mean_motion > 0
         self.satellite_name = satellite_name
         self.satellite_catalog_number = satellite_catalog_number
@@ -57,16 +85,14 @@ class TwoLineElementSet:
         self.checksum_l2 = checksum_l2
 
     def orbital_period(self) -> float:
-        """
-         Duration of one orbit. Calculated from the mean motion.
+        """Duration of one orbit. Calculated from the mean motion.
 
         :return: Duration of one orbit, in seconds
         """
         return 86400 / self.mean_motion
 
     def semi_major_axis(self) -> float:
-        """
-        Length of the semi-major axis. Calculated from the mean motion.
+        """Length of the semi-major axis. Calculated from the mean motion.
 
         :return: semi-major axis length in metres
         """
@@ -80,8 +106,7 @@ class TwoLineElementSet:
         )
 
     def keplerian_elements(self) -> KeplerianElements:
-        """
-        Keplerian elements for this TLE
+        """Keplerian elements for this TLE.
 
         NB Anomaly is not calculated!
 

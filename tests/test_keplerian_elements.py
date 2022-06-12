@@ -1,3 +1,4 @@
+"""All pytest tests for tle_tools.keplerian_elements."""
 import pytest
 
 from tle_tools.keplerian_elements import KeplerianElements
@@ -5,6 +6,7 @@ from tle_tools.keplerian_elements import KeplerianElements
 
 @pytest.fixture
 def iss_set() -> KeplerianElements:
+    """Example elements for the ISS. Outdated when you read this."""
     return KeplerianElements(
         semi_major_axis=6_600_000,
         eccentricity=0.00050,
@@ -17,7 +19,10 @@ def iss_set() -> KeplerianElements:
 
 @pytest.fixture
 def molniya_set() -> KeplerianElements:
-    #  https://en.wikipedia.org/wiki/Molniya_orbit#Properties
+    """Example elements for a Molniya orbit.
+
+    See https://en.wikipedia.org/wiki/Molniya_orbit#Properties
+    """
     return KeplerianElements(
         semi_major_axis=26_600_000,
         eccentricity=0.74,
@@ -31,6 +36,7 @@ def molniya_set() -> KeplerianElements:
 def test_orbital_period(
     iss_set: KeplerianElements, molniya_set: KeplerianElements
 ) -> None:
+    """Orbital period is calculated from semi-major axis."""
     result = iss_set.orbital_period()
     expected_value = 5336.241781322555
     assert result == expected_value, "Bad orbital period for ISS orbit"
@@ -42,6 +48,7 @@ def test_orbital_period(
 def test_semi_minor_axis(
     iss_set: KeplerianElements, molniya_set: KeplerianElements
 ) -> None:
+    """Semi-minor axis is calculated from semi-major axis and eccentricity."""
     result = iss_set.semi_minor_axis()
     expected_value = 6599999.174999949
     assert result == expected_value
@@ -53,6 +60,7 @@ def test_semi_minor_axis(
 def test_area_within_orbit(
     iss_set: KeplerianElements, molniya_set: KeplerianElements
 ) -> None:
+    """Orbital area is calculated from semi-major and semi-minor axes."""
     result = iss_set.area_within_orbit()
     expected_value = 136847758884398.33
     assert result == expected_value
@@ -64,6 +72,7 @@ def test_area_within_orbit(
 def test_radius_vector_speed(
     iss_set: KeplerianElements, molniya_set: KeplerianElements
 ) -> None:
+    """Radius vector speed calculated from orbital area and period."""
     result = iss_set.radius_vector_speed()
     expected_value = 25644969716.960884
     assert result == expected_value
