@@ -27,6 +27,8 @@ pytype = {version = "^2022.5.19", python = "3.9"}
 typeguard = "^2.13.3"
 flake8-annotations = "^2.9.0"
 flake8-docstrings = "^1.6.0"
+Sphinx = "^5.0.1"
+sphinx-autodoc-typehints = "^1.18.3"
 
 [tool.coverage.paths]
 source = ["src", "*/site-packages"]
