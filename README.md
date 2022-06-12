@@ -1,3 +1,4 @@
+[![Tests](https://github.com/cjb230/tle-tools/workflows/Tests/badge.svg)](https://github.com/<your-username>/hypermodern-python/actions?workflow=Tests)
 # tle-tools
 A project you probably should not use. It has two purposes:
 1. to let me mess around with orbital dynamics (TLE = [two-line elements](https://en.wikipedia.org/wiki/Two-line_element_set)), and
