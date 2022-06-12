@@ -4,7 +4,7 @@ from tle_tools.keplerian_elements import KeplerianElements
 
 
 @pytest.fixture
-def iss_set():
+def iss_set() -> KeplerianElements:
     return KeplerianElements(
         semi_major_axis=6_600_000,
         eccentricity=0.00050,
@@ -16,7 +16,7 @@ def iss_set():
 
 
 @pytest.fixture
-def molniya_set():
+def molniya_set() -> KeplerianElements:
     #  https://en.wikipedia.org/wiki/Molniya_orbit#Properties
     return KeplerianElements(
         semi_major_axis=26_600_000,
@@ -28,7 +28,9 @@ def molniya_set():
     )
 
 
-def test_orbital_period(iss_set, molniya_set):
+def test_orbital_period(
+    iss_set: KeplerianElements, molniya_set: KeplerianElements
+) -> None:
     result = iss_set.orbital_period()
     expected_value = 5336.241781322555
     assert result == expected_value, "Bad orbital period for ISS orbit"
@@ -37,7 +39,9 @@ def test_orbital_period(iss_set, molniya_set):
     assert result == expected_value, "Bad orbital period for Molniya orbit"
 
 
-def test_semi_minor_axis(iss_set, molniya_set):
+def test_semi_minor_axis(
+    iss_set: KeplerianElements, molniya_set: KeplerianElements
+) -> None:
     result = iss_set.semi_minor_axis()
     expected_value = 6599999.174999949
     assert result == expected_value
@@ -46,7 +50,9 @@ def test_semi_minor_axis(iss_set, molniya_set):
     assert result == expected_value
 
 
-def test_area_within_orbit(iss_set, molniya_set):
+def test_area_within_orbit(
+    iss_set: KeplerianElements, molniya_set: KeplerianElements
+) -> None:
     result = iss_set.area_within_orbit()
     expected_value = 136847758884398.33
     assert result == expected_value
@@ -55,7 +61,9 @@ def test_area_within_orbit(iss_set, molniya_set):
     assert result == expected_value
 
 
-def test_radius_vector_speed(iss_set, molniya_set):
+def test_radius_vector_speed(
+    iss_set: KeplerianElements, molniya_set: KeplerianElements
+) -> None:
     result = iss_set.radius_vector_speed()
     expected_value = 25644969716.960884
     assert result == expected_value

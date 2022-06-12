@@ -35,7 +35,7 @@ def iss_tle() -> TwoLineElementSet:
     )
 
 
-def test_keplerian_elements(iss_tle):
+def test_keplerian_elements(iss_tle: TwoLineElementSet) -> None:
     result = iss_tle.keplerian_elements()
     assert result.semi_major_axis == 6795174.095898508
     assert result.eccentricity == 0.0004682

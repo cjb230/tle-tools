@@ -7,13 +7,13 @@ from tle_tools import constants
 class KeplerianElements:
     def __init__(
         self,
-        semi_major_axis: Union[int, float],
+        semi_major_axis: float,
         eccentricity: float,
-        inclination,
-        right_ascension_of_the_ascending_node,
-        argument_of_perigee,
-        true_anomaly,
-    ):
+        inclination: float,
+        right_ascension_of_the_ascending_node: float,
+        argument_of_perigee: float,
+        true_anomaly: Union[float, None],
+    ) -> None:
         self.semi_major_axis = semi_major_axis
         self.eccentricity = eccentricity
         self.inclination = inclination

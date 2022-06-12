@@ -5,6 +5,7 @@ import nox
 
 nox.options.sessions = "lint", "mypy", "tests", "safety"
 locations = "src", "tests", "noxfile.py"
+package = "tle-tools"
 
 
 def install_with_constraints(session, *args, **kwargs):
@@ -37,6 +38,7 @@ def lint(session):
     install_with_constraints(
         session,
         "flake8",
+        "flake8-annotations",
         "flake8-black",
         "flake8-import-order",
         "flake8-bugbear",
@@ -80,3 +82,11 @@ def pytype(session):
     args = session.posargs or ["--disable=import-error", *locations]
     install_with_constraints(session, "pytype")
     session.run("pytype", *args)
+
+
+@nox.session(python=["3.9", "3.10"])
+def typeguard(session):
+    args = session.posargs or ["-m", "not e2e"]
+    session.run("poetry", "install", "--no-dev", external=True)
+    install_with_constraints(session, "pytest", "pytest-mock", "typeguard")
+    session.run("pytest", f"--typeguard-packages={package}", *args)

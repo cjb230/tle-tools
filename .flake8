@@ -1,8 +1,10 @@
 [flake8]
-select = B,B9,BLK,C,E,F,I,SW
+select = ANN,B,B9,BLK,C,E,F,I,SW
 max-complexity = 10
-ignore = E203,E501,W503
+ignore = ANN101,E203,E501,W503
 max-line-length = 80
 application-import-names = tle_tools,tests
-import-order-style= google
-per-file-ignores = tests/*:S101
+import-order-style = google
+per-file-ignores =
+    tests/*:S101
+    noxfile.py:ANN
